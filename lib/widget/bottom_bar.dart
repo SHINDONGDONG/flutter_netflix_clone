@@ -10,7 +10,7 @@ class Bottom extends StatelessWidget {
         child: TabBar(                              //TapBar 위젯
           labelColor: Colors.white,                 //목록이 선택 되었을 때 색상
           unselectedLabelColor: Colors.white60,     //목록들 선택 안되었을 떄 아이콘,텍스트 색상
-          indicatorColor: Colors.blue,       //선택 탭 아래에 표시되는 색상.
+          indicatorColor: Colors.transparent,       //선택 탭 아래에 표시되는 색상.
           tabs: [                                   //TabBar위젯 안에서 tabs 항목들
             Tab(
               icon: Icon(
