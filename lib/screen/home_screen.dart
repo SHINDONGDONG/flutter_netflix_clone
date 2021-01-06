@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_clone/model/model_movie.dart';
 import 'package:flutter_netflix_clone/widget/box_slider.dart';
 import 'package:flutter_netflix_clone/widget/carousel_slider.dart';
 import 'package:flutter_netflix_clone/widget/cicle_slider.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,47 +13,55 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Movie> movies = [
-  Movie.fromMap({
-  'title':'사랑의 불시착',
-  'keyword' : '사랑/로맨스/판타지',
-  'poster' : 'test_movie_1.png',
-  'like' : false
-    }),
-  Movie.fromMap({
-  'title':'사랑의 불시착',
-  'keyword' : '사랑/로맨스/판타지',
-  'poster' : 'test_movie_1.png',
-  'like' : false
-    }),
-  Movie.fromMap({
-  'title':'사랑의 불시착',
-  'keyword' : '사랑/로맨스/판타지',
-  'poster' : 'test_movie_1.png',
-  'like' : false
-    }),
-  Movie.fromMap({
-  'title':'사랑의 불시착',
-  'keyword' : '사랑/로맨스/판타지',
-  'poster' : 'test_movie_1.png',
-  'like' : false
-    }),
+  // ignore: deprecated_member_use
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Stream<QuerySnapshot> streamData;
 
-  ];
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Firebase.initializeApp().whenComplete(() {
+    //   print("completed");
+    //   setState(() {});
+    // });
+
+
+    streamData = firestore.collection('movie').snapshots();  //moive의 의미는 firestroe콘솔에서 작성한 테이블명
+  }
+  Widget _fetchData(BuildContext context){
+    Firebase.initializeApp();
+    return StreamBuilder<QuerySnapshot>(stream:streamData,
+    builder:(context,snapshot){
+      if(!snapshot.hasData) return LinearProgressIndicator();
+      return _buildBody(context, snapshot.data.documents);
+    }
+    );
+  }
+
+  Widget _buildBody (BuildContext context, List<DocumentSnapshot> snapshot){
+
+    List<Movie> movies = snapshot.map((d)=> Movie.fromSnapshot(d)).toList();
+
     return ListView(                    //Listview 리턴을 받아
-      children: [                       
+      children: [
         Stack(                        //스택구조로 선언 (제일 처음선언한게 밑에깔림)
           children: [
             CarouselImage(movies:movies,),  //이미지가 제일 밑에 깔림.
             TopBar()                        //탭바가 그 위에옴
           ],
         ),
-            CircleSlider(movies:movies,),
-            BoxSlider(movies:movies),
+        CircleSlider(movies:movies,),
+        BoxSlider(movies:movies),
       ],
     );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return _fetchData(context);
   }
 }
 

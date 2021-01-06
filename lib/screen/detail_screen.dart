@@ -36,7 +36,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage('images/' + widget.movie.poster),
+                      image: NetworkImage(widget.movie.poster),
                       fit: BoxFit.cover,
                     )),
                     child: ClipRect(
@@ -50,14 +50,14 @@ class _DetailScreenState extends State<DetailScreen> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.fromLTRB(0, 45, 0, 10),
-                                  child: Image.asset(
-                                      'images/' + widget.movie.poster),
+                                  child: Image.network(
+                                      widget.movie.poster),
                                   height: 300,
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(7),
                                   child: Text(
-                                    '99% 일치 2019 15+ 시즌 1개',
+                                    widget.movie.keyword,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontSize: 13),
                                   ),

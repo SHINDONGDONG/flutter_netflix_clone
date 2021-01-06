@@ -24,7 +24,7 @@ class _CarouselImageState extends State<CarouselImage> {
     super.initState();
 
     movies = widget.movies;
-    images = movies.map((e) => Image.asset('images/${e.poster}')).toList();
+    images = movies.map((e) => Image.network(e.poster)).toList();
     keywords = movies.map((m) => m.keyword).toList();
     likes = movies.map((e) => e.like).toList();
     _currentKeyword = keywords[0]; //커런트 키워드는 키워드0으로 초기값 설정
