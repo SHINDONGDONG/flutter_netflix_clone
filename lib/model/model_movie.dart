@@ -17,7 +17,7 @@ class Movie{
     poster = map['poster'],
     like = map['like'];
 
-  Movie.fromSnapshot(DocumentSnapshot snapshot)
+  Movie.fromSnapshot(DocumentSnapshot snapshot)         //cloud_firestore 관련
     : this.fromMap(snapshot.data(),reference: snapshot.reference);
 
   @override

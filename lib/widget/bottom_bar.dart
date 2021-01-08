@@ -4,7 +4,7 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,                            //탭바 컨테이너의 색상
+      color: Colors.black26,                            //탭바 컨테이너의 색상
       child: Container(
         height: 50,
         child: TabBar(                              //TapBar 위젯

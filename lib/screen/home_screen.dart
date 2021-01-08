@@ -27,9 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // });
 
 
-    streamData = firestore.collection('movie').snapshots();  //moive의 의미는 firestroe콘솔에서 작성한 테이블명
+    streamData = firestore.collection('movie').snapshots();  //moive의 의미는 firestroe콘솔에서 작성한 테이블명   //
   }
-  Widget _fetchData(BuildContext context){
+  Widget _fetchData(BuildContext context){                 //스트림 데이터로 부터 데이터를 추출하여 위젯으로 만드는 과정임!!
     Firebase.initializeApp();
     return StreamBuilder<QuerySnapshot>(stream:streamData,
     builder:(context,snapshot){
